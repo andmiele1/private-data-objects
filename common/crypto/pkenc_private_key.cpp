@@ -118,7 +118,6 @@ void pcrypto::pkenc::PrivateKey::Generate()
         throw Error::RuntimeError(msg);
     }
 }  // pcrypto::pkenc::PrivateKey::Generate
->>>>>>> ee43a6749faa173ff94eb7f11d81729c933bff8a
 
 // Constructor from encoded string
 // throws RuntimeError, ValueError
