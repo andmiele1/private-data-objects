@@ -71,11 +71,15 @@ RSA* deserializeRSAPrivateKey(const std::string& encoded)
     }
     return private_key;
 }  // deserializeRSAPrivateKey
+
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-// Constructor
+// Generate RSA private key
 // throws RuntimeError
-pcrypto::pkenc::PrivateKey::PrivateKey()
+void pcrypto::pkenc::PrivateKey::Generate()
 {
+    if (private_key_)
+        RSA_free(private_key_);
+    
     unsigned long e = RSA_F4;
     BIGNUM_ptr exp(BN_new(), BN_free);
     private_key_ = nullptr;
@@ -111,7 +115,7 @@ pcrypto::pkenc::PrivateKey::PrivateKey()
         std::string msg("Crypto  Error (pkenc::PrivateKey()): Could not dup RSA private key");
         throw Error::RuntimeError(msg);
     }
-}  // pcrypto::pkenc::PrivateKey::PrivateKey
+}  // pcrypto::pkenc::PrivateKey::Generate
 
 // Constructor from encoded string
 // throws RuntimeError, ValueError
